@@ -1,8 +1,8 @@
 {
-  "name": "my-gatsby-site",
+  "name": "portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "my-gatsby-site",
+  "description": "luc-dev.com",
   "author": "lukasz",
   "keywords": [
     "gatsby"
@@ -13,19 +13,20 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "biome:lint": "biome lint ./src",
+    "biome:format": "biome format ./src --write",
+    "biome:check": "biome check ./src",
+    "biome:check:apply": "biome check ./src --write"
   },
   "dependencies": {
-    "@mdx-js/react": "^3.1.0",
+    "@biomejs/biome": "1.9.4",
     "autoprefixer": "^10.4.20",
     "gatsby": "^5.13.7",
-    "gatsby-plugin-google-gtag": "^5.13.1",
     "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-manifest": "^5.13.1",
-    "gatsby-plugin-mdx": "^5.13.1",
     "gatsby-plugin-postcss": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
-    "gatsby-plugin-sitemap": "^6.13.1",
     "gatsby-source-contentful": "^8.13.2",
     "gatsby-source-filesystem": "^5.13.1",
     "gatsby-transformer-sharp": "^5.13.1",

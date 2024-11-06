@@ -6,4 +6,4 @@ src/gatsby-types.d.ts
 useful.md
 .DS_Store
 
-.env.development
+.env*
