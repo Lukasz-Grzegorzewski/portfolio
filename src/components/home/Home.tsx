@@ -1,12 +1,8 @@
 import * as React from "react";
 
-type HomeProps = {
-  label: string;
-};
-
-const Home = ({ label }: HomeProps) => {
+const Home = () => {
   return (
-    <section id={label} className="h-screen">
+    <section id="Home" className="min-h-dvh">
       Home content
     </section>
   );

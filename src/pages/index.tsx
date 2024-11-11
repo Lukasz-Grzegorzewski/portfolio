@@ -6,19 +6,14 @@ import Navbar from "../components/Navbar/Navbar";
 import Projects from "../components/Projects/Projects";
 import Contact from "../components/Contact/Contact";
 import Layout from "../components/Layout";
-// import types
-import { ProjectType } from "../types/project.type";
-import { ContentfulType } from "../types/contentful.type";
 
-const IndexPage: React.FC<PageProps<ContentfulType>> = ({ data }) => {
-  const projects: ProjectType[] = data.items.edges.map((edge) => edge.node);
-
+const IndexPage: React.FC<PageProps> = () => {
   return (
     <main className="bg-background min-h-screen flex justify-center">
       <Layout>
         <Navbar />
-        <Home label="Home" />
-        <Projects projects={projects} />
+        <Home />
+        <Projects />
         <Contact />
       </Layout>
     </main>
@@ -27,17 +22,4 @@ const IndexPage: React.FC<PageProps<ContentfulType>> = ({ data }) => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
-
-export const query = graphql`
-  query MyQuery {
-    items: allContentfulProject {
-      edges {
-        node {
-          name
-          url
-        }
-      }
-    }
-  }
-`;
+export const Head: HeadFC = () => <title>Portfolio</title>;
