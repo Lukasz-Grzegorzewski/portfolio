@@ -32,6 +32,15 @@ module.exports = {
         DEFAULT: "0 2px 4px var(--tw-shadow-color)",
         lg: "0 8px 16px var(--tw-shadow-color)",
       },
+      keyframes: {
+        reveal: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+      animation: {
+        "reveal-mask": "reveal 1s ease-out forwards",
+      },
     },
   },
   plugins: [
