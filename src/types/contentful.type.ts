@@ -1,7 +1,7 @@
 import { ProjectType } from "./project.type";
 
 export type ContentfulType = {
-  items: {
+  projects: {
     edges: { node: ProjectType }[];
   };
 };
