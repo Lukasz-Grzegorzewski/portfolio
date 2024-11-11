@@ -41,6 +41,10 @@ module.exports = {
       animation: {
         "reveal-mask": "reveal 1s ease-out forwards",
       },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        antonio: ["Antonio", "sans-serif"],
+      },
     },
   },
   plugins: [

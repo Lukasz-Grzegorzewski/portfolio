@@ -5,7 +5,7 @@ import Navbar from "../components/navbar/Navbar";
 import Home from "../components/home/Home";
 import Projects from "../components/projects/Projects";
 import Contact from "../components/contact/Contact";
-import Layout from "../components/Layout";
+import Layout from "../layouts/Layout";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
@@ -16,6 +16,9 @@ const IndexPage: React.FC<PageProps> = () => {
         <Projects />
         <Contact />
       </Layout>
+      <h2 className="fixed bottom-4 right-4 text-secondary-dark text-3xl text-nowrap">
+        Lukasz Grzegorzewski
+      </h2>
     </main>
   );
 };
