@@ -1,7 +1,6 @@
 // require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 import * as React from "react";
 import { useForm, ValidationError } from "@formspree/react";
-import Loading from "../status/Loading";
 import BtnSubmit from "./BtnSubmit";
 
 type FormDataType = {
