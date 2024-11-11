@@ -67,7 +67,6 @@ const Contact: React.FC = () => {
             errors={submitState.errors}
           />
         </div>
-
         {/* Message Field */}
         <div className="relative">
           <textarea

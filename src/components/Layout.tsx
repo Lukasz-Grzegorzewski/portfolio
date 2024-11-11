@@ -7,9 +7,7 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="w-full max-w-screen-lg grid grid-cols-1 scroll-smooth">
-      {children}
-    </div>
+    <div className="w-full max-w-screen-lg grid grid-cols-1">{children}</div>
   );
 };
 

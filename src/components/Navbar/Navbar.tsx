@@ -7,8 +7,8 @@ const Navbar = () => {
   const buttons = ["Home", "Projects", "Contact"];
 
   return (
-    <nav>
-      <ul className="fixed right-16 flex gap-10 justify-end pt-5">
+    <nav className="fixed w-full max-w-screen-lg flex justify-end p-5">
+      <ul className="flex gap-10 justify-end ">
         {buttons.map((button) => (
           <Link key={button} to={`#${button}`}>
             <li>
