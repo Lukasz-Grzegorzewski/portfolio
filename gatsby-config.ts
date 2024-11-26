@@ -25,7 +25,7 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "./src/images/stitch-head.png",
+        icon: "./src/images/stitch-head.png", // path to favicon
       },
     },
     {

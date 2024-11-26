@@ -1,8 +1,8 @@
 import * as React from "react";
-import ProjectCard from "./ProjectCard";
 import { ProjectType } from "../../types/project.type";
 import { graphql, useStaticQuery } from "gatsby";
 import { ContentfulType } from "../../types/contentful.type";
+import { Carousel } from "./Carousel";
 
 const Projects = () => {
   const data = useStaticQuery<ContentfulType>(graphql`
@@ -13,26 +13,37 @@ const Projects = () => {
             name
             url
             stack
+            index
+            thumbnail {
+              gatsbyImage(layout: FIXED, height: 337, placeholder: BLURRED)
+            }
           }
         }
       }
     }
   `);
+
   const projects: ProjectType[] = data?.projects?.edges?.map(
     (edge) => edge.node,
   );
 
+  // const tempProjects = Array.from({ length: 5 }, (_, i) =>
+  //   projects.map((project) => ({
+  //     ...project,
+  //     index: project.index + i * 3,
+  //   })),
+  // ).reduce((acc, curr) => acc.concat(curr), []);
+
+  // console.log(tempProjects);
+
   return (
     <section
       id="Projects"
-      className="min-h-dvh flex items-center justify-center"
+      className="min-h-screen flex items-center justify-center"
     >
-      <ul className="flex gap-4">
-        {projects.length > 0 &&
-          projects.map((project) => (
-            <ProjectCard key={project.name} {...project} />
-          ))}
-      </ul>
+      <div className="absolute overflow-hidden left-0 right-0 px-20">
+        <Carousel projects={projects} />
+      </div>
     </section>
   );
 };

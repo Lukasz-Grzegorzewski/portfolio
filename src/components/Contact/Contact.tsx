@@ -38,7 +38,10 @@ const Contact: React.FC = () => {
       id="Contact"
       className="min-h-dvh flex items-center justify-center"
     >
-      <form className="space-y-6 w-1/2 round-3xl" onSubmit={handleSubmit}>
+      <form
+        className="space-y-6 w-3/4 round-3xl md:w-1/2"
+        onSubmit={handleSubmit}
+      >
         {/* Honeypot Field */}
         <input type="text" name="_gotcha" className="hidden" />
         {/* Email Field */}

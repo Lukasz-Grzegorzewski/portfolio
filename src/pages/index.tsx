@@ -16,7 +16,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Projects />
         <Contact />
       </Layout>
-      <h2 className="fixed bottom-4 right-4 text-secondary-dark text-3xl text-nowrap">
+      <h2 className="fixed left-2 top-2 text-secondary-dark text-3xl text-nowrap md:left-auto md:top-auto md:bottom-4 md:right-4">
         Lukasz Grzegorzewski
       </h2>
     </main>

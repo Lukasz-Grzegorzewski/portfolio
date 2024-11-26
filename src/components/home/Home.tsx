@@ -19,17 +19,14 @@ const Home = () => {
   );
 
   return (
-    <section id="Home" className="min-h-dvh flex items-center justify-center">
-      {imageData && (
-        <GatsbyImage
-          image={imageData}
-          alt="logo"
-          backgroundColor="transparent"
-        />
-      )}
+    <section
+      id="Home"
+      className="min-h-dvh flex flex-col items-center justify-center md:flex-row"
+    >
+      <img src={"/images/stitch.png"} alt="Logo" />
       <div className="relative">
-        <h1 className="text-secondary text-6xl">Developpeur</h1>
-        <span className="absolute text-secondary -right-20 -bottom-10 text-3xl">
+        <h1 className="text-secondary text-4xl md:text-6xl">Developpeur</h1>
+        <span className="absolute text-secondary -right-10 -bottom-7 text-xl md:text-2xl md:-right-15 md:-bottom-10">
           Full Stack
         </span>
       </div>

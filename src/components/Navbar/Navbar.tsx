@@ -6,8 +6,12 @@ const Navbar = () => {
 
   const buttons = ["Home", "Projects", "Contact"];
 
+  const openPDF = () => {
+    console.log("open pdf dialog modal");
+  };
+
   return (
-    <nav className="fixed w-full max-w-screen-lg flex justify-end p-5">
+    <nav className="fixed w-full max-w-screen-lg justify-end p-5 hidden md:flex">
       <ul className="flex gap-10 justify-end ">
         {buttons.map((button) => (
           <Link key={button} to={`#${button}`}>
@@ -24,12 +28,8 @@ const Navbar = () => {
         ))}
 
         <li>
-          <button
-            type="button"
-            onClick={() => setActive("My CV")}
-            className={`${active === "My CV" ? "text-primary underline underline-offset-4" : "text-secondary"} transition-all duration-500`}
-          >
-            My CV
+          <button type="button" onClick={openPDF} className="text-secondary">
+            CV
           </button>
         </li>
       </ul>
