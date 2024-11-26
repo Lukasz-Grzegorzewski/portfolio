@@ -36,8 +36,11 @@ const Contact: React.FC = () => {
   return (
     <section
       id="Contact"
-      className="min-h-dvh flex items-center justify-center"
+      className="min-h-dvh flex flex-col gap-10 items-center justify-center"
     >
+      <h2 className="text-secondary-dark text-4xl text-center">
+        Faisons connaissance
+      </h2>
       <form
         className="space-y-6 w-3/4 round-3xl md:w-1/2"
         onSubmit={handleSubmit}
