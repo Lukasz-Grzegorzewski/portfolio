@@ -35,7 +35,14 @@ const Home = () => {
           <OrbitControls enableZoom={false} />
         </Canvas>
       </div>
-      <h1 className="relative text-secondary text-4xl -mt-5 md:text-6xl md:mb-0 after:content-['Full\00a0Stack'] after:absolute after:-right-10 after:-bottom-8 after:text-xl after:md:text-2xl after:md:-right-15 after:md:-bottom-10">
+      <h1
+        className="
+          relative text-secondary text-4xl -mt-5 
+          md:text-6xl md:mb-0 
+          after:content-['Full\00a0Stack'] after:absolute after:-right-10 after:-bottom-8 after:text-xl 
+          after:md:text-2xl after:md:-right-15 after:md:-bottom-10
+        "
+      >
         Developpeur
       </h1>
     </section>

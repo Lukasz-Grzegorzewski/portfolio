@@ -72,7 +72,27 @@ const config: GatsbyConfig = {
         display: "swap",
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Luckiest Guy`, `cursive pro:400`],
+        display: "swap",
+      },
+    },
   ],
 };
 
 export default config;
+
+/**
+ * <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+Luckiest Guy: CSS class
+
+.luckiest-guy-regular {
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+ */

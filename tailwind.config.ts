@@ -44,6 +44,7 @@ module.exports = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         antonio: ["Antonio", "sans-serif"],
+        luckiest_guy: ["Luckiest Guy", "cursive"],
       },
     },
   },

@@ -7,15 +7,24 @@ import { Carousel } from "./Carousel";
 const Projects = () => {
   const data = useStaticQuery<ContentfulType>(graphql`
     query MyQuery {
-      projects: allContentfulProject {
+      projects: allContentfulProject(sort: {index: ASC}) {
         edges {
           node {
             name
-            url
-            stack
             index
+            stack
+            url
+            urlGithub
+            urlGithubBackend
+            urlGithubFrontend
+            image {
+              gatsbyImage(layout: FIXED, height: 720, placeholder: BLURRED)
+            }
             thumbnail {
               gatsbyImage(layout: FIXED, height: 337, placeholder: BLURRED)
+            }
+            thumbnailMobile {
+              gatsbyImage(layout: FIXED, width: 338, placeholder: BLURRED)
             }
           }
         }
@@ -27,14 +36,12 @@ const Projects = () => {
     (edge) => edge.node,
   );
 
-  // const tempProjects = Array.from({ length: 5 }, (_, i) =>
-  //   projects.map((project) => ({
-  //     ...project,
-  //     index: project.index + i * 3,
-  //   })),
-  // ).reduce((acc, curr) => acc.concat(curr), []);
-
-  // console.log(tempProjects);
+  const tempProjects = Array.from({ length: 5 }, (_, i) =>
+    projects.map((project) => ({
+      ...project,
+      index: project.index + i * 3,
+    })),
+  ).reduce((acc, curr) => acc.concat(curr), []);
 
   return (
     <section
