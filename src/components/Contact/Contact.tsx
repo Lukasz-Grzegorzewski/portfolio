@@ -10,11 +10,11 @@ type FormDataType = {
 };
 
 const Contact = ({ setActiveSection }: SetActiveSectionType) => {
-  const { distance, elementRef } = useScrollDistance();
+  const { isInView, elementRef } = useScrollDistance("Contact");
 
   useEffect(() => {
-    if (distance === 0) setActiveSection("Contact");
-  }, [distance, setActiveSection]);
+    if (isInView) setActiveSection("Contact");
+  }, [isInView, setActiveSection]);
 
   const [formData, setFormData] = React.useState<FormDataType>({
     email: "",

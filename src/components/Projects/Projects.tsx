@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 import { ProjectType } from "@src/types/project.type";
 import { ContentfulType } from "@src/types/contentful.type";
-import { Carousel } from "./Carousel";
+import { Carousel } from "./desktop/Carousel";
 import { SetActiveSectionType } from "@pages/index";
 import useScrollDistance from "@hooks/useScrollDistance";
 
-const Projects = ({ setActiveSection }: SetActiveSectionType) => {
-  const { distance, elementRef } = useScrollDistance();
+const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
+  const { isInView, elementRef } = useScrollDistance("Projects");
 
   useEffect(() => {
-    if (distance === 0) setActiveSection("Projects");
-  }, [distance, setActiveSection]);
+    if (!isNavClick && isInView) setActiveSection("Projects");
+  }, [isInView, setActiveSection, isNavClick]);
 
   const data = useStaticQuery<ContentfulType>(graphql`
     query MyQuery {
@@ -57,9 +57,7 @@ const Projects = ({ setActiveSection }: SetActiveSectionType) => {
       ref={elementRef}
       className="min-h-screen flex items-center justify-center"
     >
-      <div className="absolute overflow-hidden left-0 right-0 px-20">
-        <Carousel projects={projects} />
-      </div>
+      <Carousel projects={projects} />
     </section>
   );
 };

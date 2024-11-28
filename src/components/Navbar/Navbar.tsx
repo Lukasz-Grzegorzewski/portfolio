@@ -2,24 +2,36 @@ import { Link } from "gatsby";
 import React from "react";
 import { SetActiveSectionType } from "@pages/index";
 
+type NavbarProps = SetActiveSectionType & {
+  activeSection: string;
+  setIsNavClick: (isNavClick: boolean) => void;
+};
+
 const Navbar = ({
   activeSection,
   setActiveSection,
-}: SetActiveSectionType & { activeSection: string }) => {
+  setIsNavClick,
+}: NavbarProps) => {
   const buttons = ["Home", "Projects", "Contact"];
 
+  const handleNavClick = (section: string) => {
+    setIsNavClick(true);
+    setActiveSection(section);
+    setTimeout(() => setIsNavClick(false), 1000);
+  };
+
   return (
-    <nav className="fixed w-full max-w-screen-lg justify-end p-5 hidden md:flex">
+    <nav className="fixed z-10 w-full max-w-screen-lg justify-end p-5 hidden md:flex">
       <ul className="flex gap-10 justify-end ">
-        {buttons.map((button) => (
-          <Link key={button} to={`#${button}`}>
+        {buttons.map((section) => (
+          <Link key={section} to={`#${section}`}>
             <li>
               <button
                 type="button"
-                onClick={() => setActiveSection(button)}
-                className={`${activeSection === button ? "text-primary underline underline-offset-4" : "text-secondary"} transition-all duration-500`}
+                onClick={() => handleNavClick(section)}
+                className={`${activeSection === section ? "text-primary underline underline-offset-4" : "text-secondary"} transition-all duration-500`}
               >
-                {button}
+                {section}
               </button>
             </li>
           </Link>

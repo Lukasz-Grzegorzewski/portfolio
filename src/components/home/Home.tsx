@@ -7,11 +7,11 @@ import useScrollDistance from "@hooks/useScrollDistance";
 
 const Home = ({ setActiveSection }: SetActiveSectionType) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
-  const { distance, elementRef } = useScrollDistance();
+  const { isInView, elementRef } = useScrollDistance("Home");
 
   useEffect(() => {
-    if (distance === 0) setActiveSection("Home");
-  }, [distance, setActiveSection]);
+    if (isInView) setActiveSection("Home");
+  }, [isInView, setActiveSection]);
 
   useEffect(() => {
     if (window) {

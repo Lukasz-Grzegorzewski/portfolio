@@ -1,7 +1,7 @@
 import React, { useRef, MouseEvent as MouseEventReact } from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ProjectType } from "@src/types/project.type";
-import Links from "./Links/Links";
+import Links from "../Links";
 
 type ProjectCardProps = ProjectType & {
   handleClickCard: (
@@ -32,13 +32,16 @@ export const ProjectCard = ({
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <div
       ref={cardRef}
-      className={`flex flex-col items-center cursor-pointer transition-width duration-700 ease-in-out`}
+      className={`flex flex-col items-center cursor-pointer transition-width duration-700 ease-in-out my-20`}
       onClick={(e) => handleClickCard(e, index)}
     >
       <div
-        className={`relative transition-width duration-700 ease-in-out h-fit rounded-3xl overflow-hidden ${
-          clickedCardIndex === index ? "w-[600px]" : "w-20"
-        }`}
+        className={`
+          relative transition-width duration-700 ease-in-out 
+          h-fit rounded-3xl shadow-[0_0px_60px_rgba(0,0,0,.3)] overflow-hidden 
+          ${name === "Portfolio" ? "flex" : ""}
+          ${clickedCardIndex === index ? "w-[600px]" : "w-80"}
+        `}
       >
         {projectImage && (
           <GatsbyImage
@@ -55,10 +58,10 @@ export const ProjectCard = ({
             p-5
             flex items-center justify-center gap-5 cursor-auto
             before:absolute before:content-[''] before:left-0 before:right-0
-            before:shadow-[0_0_60px_50px_rgba(0,0,0,0.85)]"
+            before:shadow-[0_0_60px_50px_rgba(0,0,0,0.55)]"
             onClick={(e) => {
               e.stopPropagation();
-              console.log("Inner button clicked");
+              // console.log("Inner button clicked");
             }}
           >
             <Links

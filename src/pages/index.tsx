@@ -7,11 +7,22 @@ import Contact from "@components/contact/Contact";
 import Layout from "@layouts/Layout";
 
 export type SetActiveSectionType = {
-  setActiveSection: (active: string) => void;
+  setActiveSection: (activeSection: string) => void;
+  isNavClick?: boolean;
 };
 
 const IndexPage: React.FC<PageProps> = () => {
-  const [activeSection, setActiveSection] = React.useState("Home");
+  const [activeSection, setActiveSection] = React.useState(
+    window?.location.hash === "" ? "Home" : "",
+  );
+  const [isNavClick, setIsNavClick] = React.useState(false);
+
+  React.useEffect(() => {
+    // Check if there's no hash in the URL, then redirect to #Home
+    if (window?.location.hash === "") {
+      window.location.hash = "#Home";
+    }
+  }, []);
 
   return (
     <main className="bg-background min-h-screen flex justify-center ">
@@ -19,9 +30,10 @@ const IndexPage: React.FC<PageProps> = () => {
         <Navbar
           activeSection={activeSection}
           setActiveSection={setActiveSection}
+          setIsNavClick={setIsNavClick} // Passing the setter for click state
         />
         <Home setActiveSection={setActiveSection} />
-        <Projects setActiveSection={setActiveSection} />
+        <Projects setActiveSection={setActiveSection} isNavClick={isNavClick} />
         <Contact setActiveSection={setActiveSection} />
       </Layout>
       <h2 className="fixed left-2 top-2 text-secondary-dark text-3xl text-nowrap md:left-auto md:top-auto md:bottom-4 md:right-4">

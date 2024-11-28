@@ -78,24 +78,26 @@ export const Carousel = ({ projects }: CarouselProps) => {
   };
 
   return (
-    <div
-      ref={carouselRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div ref={cardContainerRef} className="flex gap-4 justify-center">
-        {projects.map((project) => (
-          <ProjectCard
-            key={project.index}
-            {...project}
-            clickedCardIndex={clickedCardIndex}
-            handleClickCard={(
-              e: MouseEventReact<HTMLDivElement, MouseEvent>,
-              index: number,
-            ) => handleClickCard(e, index)}
-          />
-        ))}
+    <div className="absolute overflow-hidden left-0 right-0 px-20">
+      <div
+        ref={carouselRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div ref={cardContainerRef} className="flex gap-4 justify-center">
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.index}
+              {...project}
+              clickedCardIndex={clickedCardIndex}
+              handleClickCard={(
+                e: MouseEventReact<HTMLDivElement, MouseEvent>,
+                index: number,
+              ) => handleClickCard(e, index)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
