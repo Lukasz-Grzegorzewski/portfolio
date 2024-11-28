@@ -27,7 +27,7 @@ const Navbar = ({
 
         <li>
           <a
-            href="https://localhost:8000/cv/CV_Lukasz_Grzegorzewski.pdf"
+            href={`${process.env.DOMAIN}/cv/CV_Lukasz_Grzegorzewski.pdf`}
             target="_blank"
             rel="noreferrer"
             className="text-secondary"

@@ -11,7 +11,6 @@ type FormDataType = {
 
 const Contact = ({ setActiveSection }: SetActiveSectionType) => {
   const { distance, elementRef } = useScrollDistance();
-  console.log(distance);
 
   useEffect(() => {
     if (distance === 0) setActiveSection("Contact");
