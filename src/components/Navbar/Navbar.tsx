@@ -1,14 +1,12 @@
 import { Link } from "gatsby";
-import * as React from "react";
+import React from "react";
+import { SetActiveSectionType } from "@pages/index";
 
-const Navbar = () => {
-  const [active, setActive] = React.useState("");
-
+const Navbar = ({
+  activeSection,
+  setActiveSection,
+}: SetActiveSectionType & { activeSection: string }) => {
   const buttons = ["Home", "Projects", "Contact"];
-
-  const openPDF = () => {
-    console.log("open pdf dialog modal");
-  };
 
   return (
     <nav className="fixed w-full max-w-screen-lg justify-end p-5 hidden md:flex">
@@ -18,8 +16,8 @@ const Navbar = () => {
             <li>
               <button
                 type="button"
-                onClick={() => setActive(button)}
-                className={`${active === button ? "text-primary underline underline-offset-4" : "text-secondary"} transition-all duration-500`}
+                onClick={() => setActiveSection(button)}
+                className={`${activeSection === button ? "text-primary underline underline-offset-4" : "text-secondary"} transition-all duration-500`}
               >
                 {button}
               </button>
@@ -28,9 +26,14 @@ const Navbar = () => {
         ))}
 
         <li>
-          <button type="button" onClick={openPDF} className="text-secondary">
+          <a
+            href="https://localhost:8000/cv/CV_Lukasz_Grzegorzewski.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="text-secondary"
+          >
             CV
-          </button>
+          </a>
         </li>
       </ul>
     </nav>

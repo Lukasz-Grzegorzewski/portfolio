@@ -4,7 +4,7 @@ import React, {
   useState,
   MouseEvent as MouseEventReact,
 } from "react";
-import { ProjectType } from "../../types/project.type";
+import { ProjectType } from "@src/types/project.type";
 import { ProjectCard } from "./ProjectCard";
 
 type CarouselProps = {

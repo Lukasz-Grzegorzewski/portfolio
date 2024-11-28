@@ -1,10 +1,18 @@
-import * as React from "react";
-import { ProjectType } from "../../types/project.type";
+import React, { useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import { ContentfulType } from "../../types/contentful.type";
+import { ProjectType } from "@src/types/project.type";
+import { ContentfulType } from "@src/types/contentful.type";
 import { Carousel } from "./Carousel";
+import { SetActiveSectionType } from "@pages/index";
+import useScrollDistance from "@hooks/useScrollDistance";
 
-const Projects = () => {
+const Projects = ({ setActiveSection }: SetActiveSectionType) => {
+  const { distance, elementRef } = useScrollDistance();
+
+  useEffect(() => {
+    if (distance === 0) setActiveSection("Projects");
+  }, [distance, setActiveSection]);
+
   const data = useStaticQuery<ContentfulType>(graphql`
     query MyQuery {
       projects: allContentfulProject(sort: {index: ASC}) {
@@ -46,6 +54,7 @@ const Projects = () => {
   return (
     <section
       id="Projects"
+      ref={elementRef}
       className="min-h-screen flex items-center justify-center"
     >
       <div className="absolute overflow-hidden left-0 right-0 px-20">

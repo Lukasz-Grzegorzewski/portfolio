@@ -1,14 +1,22 @@
-// require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
-import * as React from "react";
+import React, { useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import BtnSubmit from "./BtnSubmit";
+import { SetActiveSectionType } from "@pages/index";
+import useScrollDistance from "@hooks/useScrollDistance";
 
 type FormDataType = {
   email: string;
   message: string;
 };
 
-const Contact: React.FC = () => {
+const Contact = ({ setActiveSection }: SetActiveSectionType) => {
+  const { distance, elementRef } = useScrollDistance();
+  console.log(distance);
+
+  useEffect(() => {
+    if (distance === 0) setActiveSection("Contact");
+  }, [distance, setActiveSection]);
+
   const [formData, setFormData] = React.useState<FormDataType>({
     email: "",
     message: "",
@@ -36,6 +44,7 @@ const Contact: React.FC = () => {
   return (
     <section
       id="Contact"
+      ref={elementRef}
       className="min-h-dvh flex flex-col gap-10 items-center justify-center"
     >
       <h2 className="text-secondary-dark text-4xl text-center">

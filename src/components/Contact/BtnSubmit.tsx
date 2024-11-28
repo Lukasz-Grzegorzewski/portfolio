@@ -1,6 +1,6 @@
-import * as React from "react";
-import Loading from "../status/Loading";
-import Success from "../status/Success";
+import React from "react";
+import Loading from "@components/status/Loading";
+import Success from "@components/status/Success";
 
 type SubmitState = {
   submitting: boolean;

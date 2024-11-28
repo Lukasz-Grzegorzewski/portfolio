@@ -1,6 +1,5 @@
-import * as React from "react";
-import { ProjectType } from "../../../types/project.type";
-import { Link } from "gatsby";
+import React from "react";
+import { ProjectType } from "@src/types/project.type";
 
 type LinksProps = Pick<
   ProjectType,
@@ -44,6 +43,7 @@ const Links = ({
     (link) =>
       link.url && (
         <a
+          key={link.label}
           href={link.url}
           target="_blank"
           rel="noreferrer"

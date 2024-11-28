@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stage } from "@react-three/drei";
 import Stitch from "./Stitch";
+import { SetActiveSectionType } from "@pages/index";
+import useScrollDistance from "@hooks/useScrollDistance";
 
-const Home = () => {
+const Home = ({ setActiveSection }: SetActiveSectionType) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
+  const { distance, elementRef } = useScrollDistance();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (distance === 0) setActiveSection("Home");
+  }, [distance, setActiveSection]);
+
+  useEffect(() => {
+    if (window) {
       const handleResize = () => setWindowWidth(window.innerWidth);
       window.addEventListener("resize", handleResize);
       setWindowWidth(window.innerWidth);
@@ -18,6 +25,7 @@ const Home = () => {
   return (
     <section
       id="Home"
+      ref={elementRef}
       className="min-h-screen pb-20 flex flex-col items-center justify-center md:flex-row md:pb-0"
     >
       <div className="h-[320px] mb-0 md:h-[500px] md:mb-20">

@@ -1,6 +1,6 @@
 import React, { useRef, MouseEvent as MouseEventReact } from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { ProjectType } from "../../types/project.type";
+import { ProjectType } from "@src/types/project.type";
 import Links from "./Links/Links";
 
 type ProjectCardProps = ProjectType & {
@@ -69,7 +69,7 @@ export const ProjectCard = ({
             />
             <button type="button" className="cursor-pointer brightness-100">
               <img
-                src="/images/icons/plus.png"
+                src="/images/icons/info.png"
                 alt="description"
                 className="h-5 hover:opacity-50 transition-opacity duration-300"
               />
