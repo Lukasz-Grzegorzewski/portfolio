@@ -12,15 +12,14 @@ export type SetActiveSectionType = {
 };
 
 const IndexPage: React.FC<PageProps> = () => {
-  const [activeSection, setActiveSection] = React.useState(
-    typeof window !== "undefined" && window.location.hash === "" ? "Home" : "",
-  );
+  const [activeSection, setActiveSection] = React.useState("");
   const [isNavClick, setIsNavClick] = React.useState(false);
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       if (window.location.hash === "") {
         window.location.hash = "#Home";
+        setActiveSection("Home");
       }
     }
   }, []);
