@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stage } from "@react-three/drei";
 import Stitch from "./Stitch";
 import { SetActiveSectionType } from "@pages/index";
 import useScrollDistance from "@hooks/useScrollDistance";
+import Loading from "../status/Loading";
 
 const Home = ({ setActiveSection }: SetActiveSectionType) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
@@ -28,20 +29,22 @@ const Home = ({ setActiveSection }: SetActiveSectionType) => {
       ref={elementRef}
       className="min-h-screen pb-20 flex flex-col items-center justify-center md:flex-row md:pb-0"
     >
-      <div className="h-[320px] mb-0 md:h-[500px] md:mb-20">
-        <Canvas
-          key={windowWidth}
-          camera={{
-            position: [-1, 1, 3],
-            fov: 75,
-            zoom: windowWidth >= 768 ? 1 : 0.7,
-          }}
-        >
-          <Stage environment="city" intensity={1}>
-            <Stitch />
-          </Stage>
-          <OrbitControls enableZoom={false} />
-        </Canvas>
+      <div className="h-[320px] mb-0 md:h-[500px] md:mb-20 flex items-center">
+        <Suspense fallback={<Loading />}>
+          <Canvas
+            key={windowWidth}
+            camera={{
+              position: [-1, 1, 3],
+              fov: 75,
+              zoom: windowWidth >= 768 ? 1 : 0.7,
+            }}
+          >
+            <Stage environment="city" intensity={1}>
+              <Stitch />
+            </Stage>
+            <OrbitControls enableZoom={false} />
+          </Canvas>
+        </Suspense>
       </div>
       <h1
         className="

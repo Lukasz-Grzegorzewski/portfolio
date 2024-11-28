@@ -2,7 +2,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <span className="animate-spin border border-t-transparent border-primary rounded-full aspect-square w-6 h-6" />
+    <span className="animate-spin flex items-center w-6 h-6 border border-solid border-primary border-t-transparent rounded-full" />
   );
 };
 

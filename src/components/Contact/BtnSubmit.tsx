@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Loading from "@components/status/Loading";
 import Success from "@components/status/Success";
 
@@ -10,20 +10,22 @@ type SubmitState = {
 type BtnSubmitProps = {
   style: string;
   submitState: SubmitState;
+  resetForm: () => void;
 };
 
-const BtnSubmit = ({ style, submitState }: BtnSubmitProps) => {
+const BtnSubmit = ({ style, submitState, resetForm }: BtnSubmitProps) => {
   const [success, setSuccess] = React.useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (submitState.succeeded) {
       setSuccess(true);
       const timer = setTimeout(() => {
         setSuccess(false);
-      }, 5000);
+        resetForm();
+      }, 4000);
       return () => clearTimeout(timer);
     }
-  }, [submitState.succeeded]);
+  }, [submitState.succeeded, resetForm]);
 
   const buttonContent = submitState.submitting ? (
     <Loading />
@@ -52,7 +54,7 @@ const BtnSubmit = ({ style, submitState }: BtnSubmitProps) => {
           success ? "opacity-0 absolute" : "opacity-100"
         }`}
       >
-        Envoyer
+        {buttonContent}
       </span>
     </button>
   );

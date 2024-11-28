@@ -12,17 +12,17 @@ type FormDataType = {
 const Contact = ({ setActiveSection }: SetActiveSectionType) => {
   const { isInView, elementRef } = useScrollDistance("Contact");
 
-  useEffect(() => {
-    if (isInView) setActiveSection("Contact");
-  }, [isInView, setActiveSection]);
-
   const [formData, setFormData] = React.useState<FormDataType>({
     email: "",
     message: "",
   });
-  const [submitState, handleSubmit] = useForm(
+  const [submitState, handleSubmit, resetForm] = useForm(
     process.env.FORMSPREE_ID as string,
   );
+
+  useEffect(() => {
+    if (isInView) setActiveSection("Contact");
+  }, [isInView, setActiveSection]);
 
   React.useEffect(() => {
     if (submitState.succeeded) {
@@ -107,7 +107,11 @@ const Contact = ({ setActiveSection }: SetActiveSectionType) => {
             errors={submitState.errors}
           />
         </div>
-        <BtnSubmit style={style} submitState={submitState} />
+        <BtnSubmit
+          style={style}
+          submitState={submitState}
+          resetForm={resetForm}
+        />
       </form>
     </section>
   );
