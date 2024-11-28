@@ -38,7 +38,12 @@ const BtnSubmit = ({ style, submitState, resetForm }: BtnSubmitProps) => {
   return (
     <button
       type="submit"
-      className={`${style} h-12 text-primary flex items-center justify-center hover:neon-primary transition-all duration-700 ease-in-out`}
+      className={`
+        ${style}
+        h-12 text-primary flex items-center justify-center 
+        transition-all duration-700 ease-in-out
+        ${!submitState.submitting && !success ? "hover:neon-primary" : ""}
+      `}
       disabled={submitState.submitting || success}
     >
       <span
