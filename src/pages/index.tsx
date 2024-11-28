@@ -13,14 +13,15 @@ export type SetActiveSectionType = {
 
 const IndexPage: React.FC<PageProps> = () => {
   const [activeSection, setActiveSection] = React.useState(
-    window?.location.hash === "" ? "Home" : "",
+    typeof window !== "undefined" && window.location.hash === "" ? "Home" : "",
   );
   const [isNavClick, setIsNavClick] = React.useState(false);
 
   React.useEffect(() => {
-    // Check if there's no hash in the URL, then redirect to #Home
-    if (window?.location.hash === "") {
-      window.location.hash = "#Home";
+    if (typeof window !== "undefined") {
+      if (window.location.hash === "") {
+        window.location.hash = "#Home";
+      }
     }
   }, []);
 
@@ -30,7 +31,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Navbar
           activeSection={activeSection}
           setActiveSection={setActiveSection}
-          setIsNavClick={setIsNavClick} // Passing the setter for click state
+          setIsNavClick={setIsNavClick}
         />
         <Home setActiveSection={setActiveSection} />
         <Projects setActiveSection={setActiveSection} isNavClick={isNavClick} />

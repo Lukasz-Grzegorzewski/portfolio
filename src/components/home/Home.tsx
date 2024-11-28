@@ -14,7 +14,7 @@ const Home = ({ setActiveSection }: SetActiveSectionType) => {
   }, [isInView, setActiveSection]);
 
   useEffect(() => {
-    if (window) {
+    if (typeof window !== "undefined") {
       const handleResize = () => setWindowWidth(window.innerWidth);
       window.addEventListener("resize", handleResize);
       setWindowWidth(window.innerWidth);

@@ -29,7 +29,7 @@ const useScrollDistance = (sectionId: string) => {
 
   // Handle hash update for each section when it's in view
   useEffect(() => {
-    if (isInView) {
+    if (typeof window !== "undefined" && isInView) {
       if (window?.location.hash !== `#${sectionId}`) {
         history.pushState(null, "", `#${sectionId}`);
       }
