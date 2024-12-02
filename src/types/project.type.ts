@@ -1,9 +1,10 @@
 import { IGatsbyImageData } from "gatsby-plugin-image";
+import { StackType } from "./stack.type";
 
 export type ProjectType = {
   name: string;
   url: string;
-  stack: string[];
+  stack: StackType[];
   index: number;
   urlGithub?: string;
   urlGithubFrontend?: string;

@@ -20,11 +20,16 @@ const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
           node {
             name
             index
-            stack
             url
             urlGithub
             urlGithubBackend
             urlGithubFrontend
+            stack {
+              name
+              logo {
+                gatsbyImage(layout: FIXED, height: 25, placeholder: BLURRED)
+              }
+            }
             image {
               gatsbyImage(layout: FIXED, height: 720, placeholder: BLURRED)
             }

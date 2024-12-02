@@ -2,6 +2,7 @@ import React, { useRef, MouseEvent as MouseEventReact } from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ProjectType } from "@src/types/project.type";
 import Links from "../Links";
+import Stack from "../Stack";
 
 type ProjectCardProps = ProjectType & {
   handleClickCard: (
@@ -51,33 +52,43 @@ export const ProjectCard = ({
           />
         )}
         {clickedCardIndex === index && (
-          // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-          <div
-            className="
-            absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-            p-5
-            flex items-center justify-center gap-5 cursor-auto
-            before:absolute before:content-[''] before:left-0 before:right-0
-            before:shadow-[0_0_60px_50px_rgba(0,0,0,0.55)]"
-            onClick={(e) => {
-              e.stopPropagation();
-              // console.log("Inner button clicked");
-            }}
-          >
-            <Links
-              url={url}
-              urlGithub={urlGithub}
-              urlGithubFrontend={urlGithubFrontend}
-              urlGithubBackend={urlGithubBackend}
-            />
-            <button type="button" className="cursor-pointer brightness-100">
-              <img
-                src="/images/icons/info.png"
-                alt="description"
-                className="h-5 hover:opacity-50 transition-opacity duration-300"
+          <>
+            {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+            <div
+              className="
+                absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                p-5
+                flex items-center justify-center gap-5 cursor-auto
+                before:absolute before:content-[''] before:left-0 before:right-0
+                before:shadow-[0_0_60px_50px_rgba(0,0,0,0.55)]"
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log("Inner button clicked");
+              }}
+            >
+              <Links
+                url={url}
+                urlGithub={urlGithub}
+                urlGithubFrontend={urlGithubFrontend}
+                urlGithubBackend={urlGithubBackend}
               />
-            </button>
-          </div>
+              <button type="button" className="cursor-pointer brightness-100">
+                <img
+                  src="/images/icons/info.png"
+                  alt="description"
+                  className="h-5 hover:opacity-50 transition-opacity duration-300"
+                />
+              </button>
+            </div>
+            <div
+              className="
+              absolute right-4 bottom-1 
+              before:absolute before:content-[''] before:left-0 before:right-0
+              before:shadow-[0_20px_60px_35px_rgba(0,0,0,.7)]"
+            >
+              <Stack stack={stack} />
+            </div>
+          </>
         )}
       </div>
       <h2 className="text-secondary">{name}</h2>
