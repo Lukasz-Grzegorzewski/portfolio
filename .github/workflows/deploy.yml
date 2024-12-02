@@ -1,0 +1,20 @@
+name: Deploy portfolio
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  deploy:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          username: ${{ secrets.SSH_USER }}
+          host: ${{ secrets.SSH_HOST }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: cd /home/lukasz/apps/luc-dev && bash -l -c "source $HOME/.bashrc && bash ./portfolio-deploy.sh"
