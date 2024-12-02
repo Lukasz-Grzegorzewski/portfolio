@@ -14,12 +14,20 @@ const Stack = ({ stack }: StackProps) => {
           const projectImage = getImage(tech.logo);
           if (!projectImage) return;
           return (
-            <GatsbyImage
-              key={tech.name}
-              image={projectImage}
-              alt={tech.name}
-              className="w-2 h-2"
-            />
+            <div className="relative group" key={tech.name}>
+              <GatsbyImage image={projectImage} alt={tech.name} className="" />
+              <div
+                className="
+                  absolute -top-7 right-0
+                  text-xs text-nowrap text-white
+                  flex items-center justify-center 
+                bg-primary bg-opacity-70 p-1 w-fit rounded-full
+                  opacity-0 group-hover:opacity-100 transition-opacity
+                "
+              >
+                {tech.name}
+              </div>
+            </div>
           );
         })}
     </div>
