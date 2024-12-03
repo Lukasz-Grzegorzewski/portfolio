@@ -9,9 +9,10 @@ import { ProjectCard } from "./ProjectCard";
 
 type CarouselProps = {
   projects: ProjectType[];
+  isProjectModal: boolean;
 };
 
-export const Carousel = ({ projects }: CarouselProps) => {
+export const Carousel = ({ projects, isProjectModal }: CarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const cardContainerRef = useRef<HTMLDivElement>(null);
   const [clickedCardIndex, setClickedCardIndex] = useState<number | null>(null);
@@ -19,12 +20,15 @@ export const Carousel = ({ projects }: CarouselProps) => {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!carouselRef.current) return;
-      if (!carouselRef.current.contains(e.target as Node))
-        setClickedCardIndex(null);
+      if (!carouselRef.current.contains(e.target as Node)) {
+        console.log("outside");
+
+        if (!isProjectModal) setClickedCardIndex(null);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isProjectModal]);
 
   const handleClickCard = (
     e: MouseEventReact<HTMLDivElement, MouseEvent>,
@@ -78,12 +82,13 @@ export const Carousel = ({ projects }: CarouselProps) => {
   };
 
   return (
-    <div className="absolute overflow-hidden left-0 right-0 px-20">
+    <div className="absolute overflow-x-hidden left-0 right-0 px-20">
       <div
         ref={carouselRef}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        className=""
       >
         <div ref={cardContainerRef} className="flex gap-4 justify-center">
           {projects.map((project) => (

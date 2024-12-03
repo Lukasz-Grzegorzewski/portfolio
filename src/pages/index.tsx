@@ -1,10 +1,11 @@
-import * as React from "react";
+import React from "react";
 import { type HeadFC, type PageProps } from "gatsby";
-import Navbar from "@components/navbar/Navbar";
 import Home from "@components/home/Home";
+import Navbar from "@components/navbar/Navbar";
 import Projects from "@components/projects/Projects";
 import Contact from "@components/contact/Contact";
 import Layout from "@layouts/Layout";
+import { ProjectDetailsProvider } from "@src/contexts/ProjectDetailsContext";
 
 export type SetActiveSectionType = {
   setActiveSection: (activeSection: string) => void;
@@ -25,7 +26,7 @@ const IndexPage: React.FC<PageProps> = () => {
   }, []);
 
   return (
-    <main className="bg-background min-h-screen flex justify-center ">
+    <main className="relative bg-background min-h-screen flex justify-center ">
       <Layout>
         <Navbar
           activeSection={activeSection}
@@ -33,7 +34,12 @@ const IndexPage: React.FC<PageProps> = () => {
           setIsNavClick={setIsNavClick}
         />
         <Home setActiveSection={setActiveSection} />
-        <Projects setActiveSection={setActiveSection} isNavClick={isNavClick} />
+        <ProjectDetailsProvider>
+          <Projects
+            setActiveSection={setActiveSection}
+            isNavClick={isNavClick}
+          />
+        </ProjectDetailsProvider>
         <Contact setActiveSection={setActiveSection} />
       </Layout>
       <h2 className="fixed left-2 top-2 text-secondary-dark text-3xl text-nowrap md:left-auto md:top-auto md:bottom-4 md:right-4">

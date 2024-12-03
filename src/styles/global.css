@@ -7,14 +7,18 @@ html {
   scroll-behavior: smooth;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   display: none;
 }
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   display: none;
 }
 

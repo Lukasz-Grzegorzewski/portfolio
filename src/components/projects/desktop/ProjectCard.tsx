@@ -1,7 +1,7 @@
-import React, { useRef, MouseEvent as MouseEventReact } from "react";
+import React, { MouseEvent as MouseEventReact } from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ProjectType } from "@src/types/project.type";
-import Links from "../Links";
+import LinksLayout from "../links/LinksLayout";
 import Stack from "../Stack";
 
 type ProjectCardProps = ProjectType & {
@@ -21,77 +21,57 @@ export const ProjectCard = ({
   urlGithubBackend,
   stack,
   thumbnail,
-  image,
-  thumbnailMobile,
   handleClickCard,
   clickedCardIndex,
 }: ProjectCardProps) => {
   const projectImage = getImage(thumbnail);
-  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <div
-      ref={cardRef}
-      className={`flex flex-col items-center cursor-pointer transition-width duration-700 ease-in-out my-20`}
+      className={`relative flex flex-col items-center cursor-pointer transition-width duration-700 ease-in-out mt-10`}
       onClick={(e) => handleClickCard(e, index)}
     >
       <div
         className={`
           relative transition-width duration-700 ease-in-out 
-          h-fit rounded-3xl shadow-[0_0px_60px_rgba(0,0,0,.3)] overflow-hidden 
-          ${name === "Portfolio" ? "flex" : ""}
-          ${clickedCardIndex === index ? "w-[600px]" : "w-80"}
+          rounded-lg shadow-[0_0px_40px_-10px_rgba(0,0,0,.3)] overflow-hidden 
+          ${clickedCardIndex === index ? "w-[600px]" : "w-28"}
         `}
       >
         {projectImage && (
           <GatsbyImage
             image={projectImage}
             alt={name}
-            className="w-full h-auto"
+            className={`
+              transition-transform duration-[750ms]
+              ${name === "Portfolio" && clickedCardIndex !== index ? "relative transform -translate-x-[178px]" : ""}
+          `}
           />
-        )}
-        {clickedCardIndex === index && (
-          <>
-            {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-            <div
-              className="
-                absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                p-5
-                flex items-center justify-center gap-5 cursor-auto
-                before:absolute before:content-[''] before:left-0 before:right-0
-                before:shadow-[0_0_60px_50px_rgba(0,0,0,0.55)]"
-              onClick={(e) => {
-                e.stopPropagation();
-                console.log("Inner button clicked");
-              }}
-            >
-              <Links
-                url={url}
-                urlGithub={urlGithub}
-                urlGithubFrontend={urlGithubFrontend}
-                urlGithubBackend={urlGithubBackend}
-              />
-              <button type="button" className="cursor-pointer brightness-100">
-                <img
-                  src="/images/icons/info.png"
-                  alt="description"
-                  className="h-5 hover:opacity-50 transition-opacity duration-300"
-                />
-              </button>
-            </div>
-            <div
-              className="
-              absolute right-4 bottom-1 
-              before:absolute before:content-[''] before:left-0 before:right-0
-              before:shadow-[0_20px_60px_35px_rgba(0,0,0,.7)]"
-            >
-              <Stack stack={stack} />
-            </div>
-          </>
         )}
       </div>
       <h2 className="text-secondary">{name}</h2>
+      <div
+        className={`
+          transition-opacity duration-500
+          ${clickedCardIndex === index ? "opacity-1" : "opacity-0"}
+        `}
+      >
+        <LinksLayout
+          links={{ url, urlGithub, urlGithubFrontend, urlGithubBackend }}
+          stack={stack}
+          name={name}
+        />
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+        <div
+          className="absolute -top-6 left-1 cursor-auto"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Stack stack={stack} />
+        </div>
+      </div>
     </div>
   );
 };
