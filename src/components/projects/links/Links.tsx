@@ -32,7 +32,7 @@ const Links = ({
       label: "api",
     },
     {
-      url,
+      url: url === "https://luc-dev.com" ? null : url,
       urlIcon: "/images/icons/eye.png",
       altIcon: "website",
       label: "www",

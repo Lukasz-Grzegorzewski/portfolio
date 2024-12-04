@@ -15,7 +15,7 @@ const Stack = ({ stack }: StackProps) => {
           if (!projectImage) return;
           return (
             <div className="relative group" key={tech.name}>
-              <GatsbyImage image={projectImage} alt={tech.name} className="" />
+              <GatsbyImage image={projectImage} alt={tech.name} />
               <div
                 className="
                   absolute -top-4 left-1/2 -translate-x-1/2

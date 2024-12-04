@@ -21,8 +21,6 @@ export const Carousel = ({ projects, isProjectModal }: CarouselProps) => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!carouselRef.current) return;
       if (!carouselRef.current.contains(e.target as Node)) {
-        console.log("outside");
-
         if (!isProjectModal) setClickedCardIndex(null);
       }
     };

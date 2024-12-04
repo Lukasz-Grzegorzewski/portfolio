@@ -7,6 +7,7 @@ import { SetActiveSectionType } from "@pages/index";
 import useScrollDistance from "@hooks/useScrollDistance";
 import { useProjectDetailsContext } from "@src/contexts/ProjectDetailsContext";
 import ProjectDetails from "./ProjectDetails";
+import Links from "./links/Links";
 
 const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
   const { isInView, elementRef } = useScrollDistance("Projects");
@@ -30,38 +31,36 @@ const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
   const data = useStaticQuery<ContentfulType>(graphql`
     query MyQuery {
       projects: allContentfulProject(sort: {index: ASC}) {
-        edges {
-          node {
+        nodes {
+          name
+          description {
+            raw
+          }
+          index
+          url
+          urlGithub
+          urlGithubBackend
+          urlGithubFrontend
+          stack {
             name
-            index
-            url
-            urlGithub
-            urlGithubBackend
-            urlGithubFrontend
-            stack {
-              name
-              logo {
-                gatsbyImage(layout: FIXED, height: 19, placeholder: BLURRED)
-              }
+            logo {
+              gatsbyImage(layout: FIXED, height: 19, placeholder: BLURRED)
             }
-            image {
-              gatsbyImage(layout: FULL_WIDTH, height: 720, placeholder: BLURRED)
-            }
-            thumbnail {
-              gatsbyImage(layout: FIXED, height: 337, placeholder: BLURRED)
-            }
-            thumbnailMobile {
-              gatsbyImage(layout: FIXED, width: 338, placeholder: BLURRED)
-            }
+          }
+          image {
+            gatsbyImage(layout: FULL_WIDTH, height: 720, placeholder: BLURRED)
+          }
+          thumbnail {
+            gatsbyImage(layout: FIXED, height: 337, placeholder: BLURRED)
+          }
+          thumbnailMobile {
+            gatsbyImage(layout: FIXED, width: 338, placeholder: BLURRED)
           }
         }
       }
     }
   `);
-
-  const projects: ProjectType[] = data?.projects?.edges?.map(
-    (edge) => edge.node,
-  );
+  const projects: ProjectType[] = data?.projects?.nodes;
 
   const projectModal = projects.find(
     (project) => project.name === projectNameModal,
@@ -82,12 +81,29 @@ const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
     >
       <Carousel projects={projects} isProjectModal={!!projectModal} />
       {projectModal && (
-        <div className="absolute inset-0 flex justify-center items-center z-20 backdrop-blur-sm">
+        <div className="absolute inset-0 flex justify-center items-center z-20 backdrop-blur-sm ">
           <div
-            className="w-[90%] md:w-[70%] max-w-5xl h-[70vh] bg-white rounded shadow-lg overflow-y-scroll"
+            className="relative w-[90%] md:w-[70%] max-w-5xl h-[70vh] max-h-fit rounded shadow-[0_0px_50px_-10px_rgba(0,0,0,.5)]"
             ref={projectDetailRef}
           >
-            <ProjectDetails project={projectModal} />
+            <div className="h-full overflow-y-scroll">
+              <ProjectDetails project={projectModal} />
+            </div>
+            <div className="flex gap-5 absolute -top-5 right-1 h-fit">
+              <Links
+                url={projectModal.url}
+                urlGithub={projectModal.urlGithub}
+                urlGithubFrontend={projectModal.urlGithubFrontend}
+                urlGithubBackend={projectModal.urlGithubBackend}
+              />
+              <button className="text-white" type="button" onClick={closeModal}>
+                <img
+                  src="/images/icons/close.png"
+                  alt="description"
+                  className="h-4 opacity-50 hover:opacity-100 transition-opacity duration-300"
+                />
+              </button>
+            </div>
           </div>
         </div>
       )}
