@@ -8,6 +8,7 @@ import useScrollDistance from "@hooks/useScrollDistance";
 import { useProjectDetailsContext } from "@src/contexts/ProjectDetailsContext";
 import ProjectDetails from "./ProjectDetails";
 import Links from "./links/Links";
+import CustomScrollbar from "../custom/CustomScrollbar";
 
 const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
   const { isInView, elementRef } = useScrollDistance("Projects");
@@ -86,8 +87,9 @@ const Projects = ({ isNavClick, setActiveSection }: SetActiveSectionType) => {
             className="relative w-[90%] md:w-[70%] max-w-5xl h-[70vh] max-h-fit rounded shadow-[0_0px_50px_-10px_rgba(0,0,0,.5)]"
             ref={projectDetailRef}
           >
-            <div className="h-full overflow-y-scroll">
+            <div className="h-full overflow-y-scroll overflow-x-hidden">
               <ProjectDetails project={projectModal} />
+              <CustomScrollbar />
             </div>
             <div className="flex gap-5 absolute -top-5 right-1 h-fit">
               <Links

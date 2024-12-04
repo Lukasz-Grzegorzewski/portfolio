@@ -72,8 +72,8 @@ const ProjectDetails = ({ project }: { project: ProjectType }) => {
       <div className="self-end pr-5">
         <Stack stack={project.stack} />
       </div>
-      <div className="flex flex-col flex-grow gap-10 p-[1rem_1.5rem_2rem] md:p-[1rem_4rem_2rem] text-secondary-light text-sm text-justify">
-        <div className="space-y-4">
+      <div className="flex flex-col flex-grow gap-10 p-[1rem_1.5rem_2rem] md:p-[1rem_4rem_2rem]">
+        <div className="text-secondary-light text-xs md:text-sm text-justify">
           {project.description &&
             renderRichText(
               project.description as RenderRichTextData<ContentfulRichTextGatsbyReference>,
