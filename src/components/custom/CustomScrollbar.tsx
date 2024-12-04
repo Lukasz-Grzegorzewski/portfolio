@@ -5,7 +5,6 @@ const CustomScrollbar = () => {
   const thumbRef = useRef<HTMLDivElement | null>(null);
   const [thumbHeight, setThumbHeight] = useState(0);
   const [thumbPosition, setThumbPosition] = useState(0);
-  console.log({ thumbPosition });
 
   useEffect(() => {
     const thumb = thumbRef.current;
@@ -22,7 +21,6 @@ const CustomScrollbar = () => {
         parentElement.clientHeight;
 
       const scrollPercentage = parentElement.scrollTop / contentHeight;
-      console.log(parentElement.scrollTop);
 
       setThumbHeight(thumbHeight);
       setThumbPosition(
