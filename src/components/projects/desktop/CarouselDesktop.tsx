@@ -5,14 +5,17 @@ import React, {
   MouseEvent as MouseEventReact,
 } from "react";
 import { ProjectType } from "@src/types/project.type";
-import { ProjectCard } from "./ProjectCard";
+import { ProjectCardDesktop } from "./ProjectCardDesktop";
 
-type CarouselProps = {
+type CarouselDesktopProps = {
   projects: ProjectType[];
   isProjectModal: boolean;
 };
 
-export const Carousel = ({ projects, isProjectModal }: CarouselProps) => {
+export const CarouselDesktop = ({
+  projects,
+  isProjectModal,
+}: CarouselDesktopProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const cardContainerRef = useRef<HTMLDivElement>(null);
   const [clickedCardIndex, setClickedCardIndex] = useState<number | null>(null);
@@ -90,7 +93,7 @@ export const Carousel = ({ projects, isProjectModal }: CarouselProps) => {
       >
         <div ref={cardContainerRef} className="flex gap-4 justify-center">
           {projects.map((project) => (
-            <ProjectCard
+            <ProjectCardDesktop
               key={project.index}
               {...project}
               clickedCardIndex={clickedCardIndex}

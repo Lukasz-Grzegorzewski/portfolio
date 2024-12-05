@@ -4,7 +4,7 @@ import { ProjectType } from "@src/types/project.type";
 import LinksLayout from "../links/LinksLayout";
 import Stack from "../Stack";
 
-type ProjectCardProps = ProjectType & {
+type ProjectCardDesktopProps = ProjectType & {
   handleClickCard: (
     e: MouseEventReact<HTMLDivElement, MouseEvent>,
     index: number,
@@ -12,7 +12,7 @@ type ProjectCardProps = ProjectType & {
   clickedCardIndex: number | null;
 };
 
-export const ProjectCard = ({
+export const ProjectCardDesktop = ({
   name,
   index,
   url,
@@ -23,7 +23,7 @@ export const ProjectCard = ({
   thumbnail,
   handleClickCard,
   clickedCardIndex,
-}: ProjectCardProps) => {
+}: ProjectCardDesktopProps) => {
   const projectImage = getImage(thumbnail);
 
   return (

@@ -16,5 +16,5 @@ export type ProjectType = {
   urlGithubBackend?: string;
   image: IGatsbyImageData;
   thumbnail: IGatsbyImageData;
-  thumbnailMobile?: IGatsbyImageData;
+  thumbnailMobile: IGatsbyImageData;
 };

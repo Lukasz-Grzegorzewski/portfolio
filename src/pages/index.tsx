@@ -2,7 +2,7 @@ import React from "react";
 import { type HeadFC, type PageProps } from "gatsby";
 import Home from "@components/home/Home";
 import Navbar from "@components/navbar/Navbar";
-import Projects from "@components/projects/Projects";
+import { Projects } from "@src/components/projects/Projects";
 import Contact from "@components/contact/Contact";
 import Layout from "@layouts/Layout";
 import { ProjectDetailsProvider } from "@src/contexts/ProjectDetailsContext";
@@ -26,7 +26,7 @@ const IndexPage: React.FC<PageProps> = () => {
   }, []);
 
   return (
-    <main className="relative bg-background min-h-screen flex justify-center ">
+    <main className="relative bg-background min-h-screen flex justify-center">
       <Layout>
         <Navbar
           activeSection={activeSection}

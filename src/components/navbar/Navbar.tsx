@@ -21,7 +21,7 @@ const Navbar = ({
   };
 
   return (
-    <nav className="fixed z-10 w-full max-w-screen-lg justify-end p-5 hidden md:flex">
+    <nav className="fixed z-10 w-full max-w-screen-lg justify-end p-5 hidden sm:flex">
       <ul className="flex gap-10 justify-end ">
         {buttons.map((section) => (
           <Link key={section} to={`#${section}`}>

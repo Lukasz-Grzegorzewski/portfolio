@@ -68,7 +68,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`Inter:200`, `source sans pro:300,400,400i,700`],
+        fonts: [`Inter:200`, `source sans pro:100,300,400,400i,700`],
         display: "swap",
       },
     },
