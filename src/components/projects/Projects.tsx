@@ -71,12 +71,12 @@ export const Projects = ({
     (project) => project.name === projectNameModal,
   );
 
-  // const tempProjects = Array.from({ length: 5 }, (_, i) =>
-  //   projects.map((project) => ({
-  //     ...project,
-  //     index: project.index + i * 3,
-  //   })),
-  // ).reduce((acc, curr) => acc.concat(curr), []);
+  const tempProjects = Array.from({ length: 5 }, (_, i) =>
+    projects.map((project) => ({
+      ...project,
+      index: project.index + i * 3,
+    })),
+  ).reduce((acc, curr) => acc.concat(curr), []);
 
   return (
     <section id="Projects" ref={elementRef} className="">

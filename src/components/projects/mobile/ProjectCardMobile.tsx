@@ -1,3 +1,4 @@
+import { useProjectDetailsContext } from "@src/contexts/ProjectDetailsContext";
 import { ProjectType } from "@src/types/project.type";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
@@ -12,7 +13,13 @@ export const ProjectCardMobile = ({
   stack,
   thumbnailMobile,
 }: ProjectType) => {
+  const { openModal } = useProjectDetailsContext();
+
   const projectThumbnailMobileImage = getImage(thumbnailMobile);
+
+  const handleDragStart = (e: React.DragEvent) => {
+    e.preventDefault(); // Disable dragging for the image
+  };
   return (
     <div className="shadow-[0_0px_40px_-10px_rgba(0,0,0,.3)] flex items-center justify-center">
       {projectThumbnailMobileImage && (
@@ -20,6 +27,9 @@ export const ProjectCardMobile = ({
           image={projectThumbnailMobileImage}
           alt={name}
           className="object-cover rounded-lg"
+          draggable={false} // Prevent default dragging
+          onDragStart={handleDragStart}
+          onClick={() => openModal(name)}
         />
       )}
     </div>

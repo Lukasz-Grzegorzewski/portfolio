@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ProjectCardMobile } from "./ProjectCardMobile";
 import { ProjectType } from "@src/types/project.type";
+import { useProjectDetailsContext } from "@src/contexts/ProjectDetailsContext";
 
 type CarouselMobileProps = {
   projects: ProjectType[];
 };
 
 export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
+  const { openModal } = useProjectDetailsContext();
   const carouselMobileRef = useRef<HTMLDivElement | null>(null);
   const cardWrapperRefs = useRef<HTMLDivElement[]>([]);
   const [currentTranslate, setCurrentTranslate] = useState(0);
@@ -36,6 +38,22 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
     }
   }, []);
 
+  // Lock vertical scroll when dragging horizontally
+  useEffect(() => {
+    if (isDragging) {
+      console.log("no scroll");
+
+      document.body.style.overflowY = "hidden";
+    } else {
+      console.log("yes scroll");
+      document.body.style.overflowY = "auto";
+    }
+
+    return () => {
+      document.body.style.overflowY = "auto";
+    };
+  }, [isDragging]);
+
   // Handle drag start
   const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -56,7 +74,6 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
 
   // Handle drag end and snap to the nearest card
   const handleEnd = () => {
-    if (typeof window === "undefined") return;
     setIsDragging(false);
 
     if (!carouselMobileRef.current || cardWrapperRefs.current.length === 0) {
@@ -64,8 +81,6 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
     }
 
     const totalCards = cardWrapperRefs.current.length;
-    const carouselWidth =
-      carouselMobileRef.current.getBoundingClientRect().width;
 
     // Calculate the target index
     const offset = window.innerWidth / 2 - cardWidth / 2; // Center offset
@@ -85,7 +100,10 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
 
   // Handle card click to center the clicked card
   const handleClick = (index: number) => {
-    if (typeof window === "undefined") return;
+    if (index === currentIndex) {
+      const project = projects[index];
+      openModal(project.name);
+    }
 
     const offset = window.innerWidth / 2 - cardWidth / 2;
     const newTranslate = offset - index * (cardWidth + gap);
@@ -112,27 +130,53 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
     >
       <div
         ref={carouselMobileRef}
-        className="flex w-fit gap-0 transition-transform duration-300 ease-out"
+        className="flex w-fit mb-44 gap-0 transition-transform duration-500 ease-out"
         style={{ transform: `translateX(${currentTranslate}px)` }}
       >
-        {projects.map((project, index) => (
-          <div
-            key={project.name}
-            ref={(el) => handleCardRef(el, index)}
-            className={`flex ${
-              index === currentIndex
-                ? "z-10 scale-100 opacity-100"
-                : "scale-75 opacity-60"
-            } transition-transform duration-300`}
-          >
-            <button
-              type="button"
-              onClick={() => handleClick(index)} // On card click, center it
+        {projects.map((project, index) => {
+          const isCurrentCard = index === currentIndex;
+          const isLeftCard = index === currentIndex - 1;
+          const isRightCard = index === currentIndex + 1;
+          const isFarLeft = !isLeftCard && index < currentIndex;
+          const isFarRight = !isLeftCard && index > currentIndex;
+
+          const scale = isCurrentCard
+            ? 1
+            : isLeftCard || isRightCard
+              ? 0.75
+              : 0.65;
+
+          const translate = isCurrentCard
+            ? { x: 0, y: 140 }
+            : isLeftCard
+              ? { x: 70, y: 60 }
+              : isRightCard
+                ? { x: -70, y: 60 }
+                : isFarLeft
+                  ? { x: 200, y: 0 }
+                  : isFarRight
+                    ? { x: -200, y: 0 }
+                    : {};
+
+          return (
+            <div
+              key={`${project.name}${index}`}
+              ref={(el) => handleCardRef(el, index)}
+              className={`flex transition-transform duration-500 `}
+              style={{
+                transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
+                zIndex: isCurrentCard ? 10 : isLeftCard || isRightCard ? 9 : 8,
+              }}
             >
-              <ProjectCardMobile {...project} />
-            </button>
-          </div>
-        ))}
+              <button
+                type="button"
+                onClick={() => handleClick(index)} // On card click, center it
+              >
+                <ProjectCardMobile {...project} />
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
