@@ -41,11 +41,8 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
   // Lock vertical scroll when dragging horizontally
   useEffect(() => {
     if (isDragging) {
-      console.log("no scroll");
-
       document.body.style.overflowY = "hidden";
     } else {
-      console.log("yes scroll");
       document.body.style.overflowY = "auto";
     }
 
