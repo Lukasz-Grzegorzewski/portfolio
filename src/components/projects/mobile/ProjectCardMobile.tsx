@@ -13,12 +13,10 @@ export const ProjectCardMobile = ({
   stack,
   thumbnailMobile,
 }: ProjectType) => {
-  const { openModal } = useProjectDetailsContext();
-
   const projectThumbnailMobileImage = getImage(thumbnailMobile);
 
   const handleDragStart = (e: React.DragEvent) => {
-    e.preventDefault(); // Disable dragging for the image
+    e.preventDefault();
   };
   return (
     <div className="shadow-[0_0px_40px_-10px_rgba(0,0,0,.3)] flex items-center justify-center">
@@ -29,7 +27,6 @@ export const ProjectCardMobile = ({
           className="object-cover rounded-lg"
           draggable={false} // Prevent default dragging
           onDragStart={handleDragStart}
-          onClick={() => openModal(name)}
         />
       )}
     </div>
