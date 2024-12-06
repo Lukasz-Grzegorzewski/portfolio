@@ -14,6 +14,7 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
   const [currentTranslate, setCurrentTranslate] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
   const [cardWidth, setCardWidth] = useState(0);
   const [gap, setGap] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,28 +42,37 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
   // Lock vertical scroll when dragging horizontally
   useEffect(() => {
     if (isDragging) {
-      document.body.style.overflowY = "hidden";
+      document.documentElement.classList.add("no-scroll");
     } else {
-      document.body.style.overflowY = "auto";
+      document.documentElement.classList.remove("no-scroll");
     }
 
     return () => {
-      document.body.style.overflowY = "auto";
+      document.documentElement.classList.remove("no-scroll");
     };
   }, [isDragging]);
 
   // Handle drag start
   const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+
     setStartX(clientX);
-    setIsDragging(true);
+    setStartY(clientY);
   };
 
   // Handle drag move
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging) return;
-
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+
+    const dx = clientX - startX;
+    const dy = clientY - startY;
+
+    if (!isDragging) {
+      setIsDragging(Math.abs(dx) > Math.abs(dy));
+    }
+
     const diff = clientX - startX;
 
     setCurrentTranslate((prev) => prev + diff);
