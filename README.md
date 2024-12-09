@@ -1,40 +1,10 @@
-## 🚀 Quick start
+# INTRO
+Mon Portfolio est une carte de visite interactive en ligne qui me permet de présenter mes projets de développement, mes compétences techniques et mes réalisations. Ce site web personnel est conçu pour mettre en valeur mon parcours. Je suis ouvert à de nouvelles opportunités professionnelles et serai ravi d’explorer des collaborations futures.
 
-1.  **Create a Gatsby site.**
+Développé avec des technologies modernes telles que TypeScript, Gatsby, ReactJS, et Tailwind CSS pour l’interface utilisateur. Contentful est utilisé pour la gestion dynamique du contenu, tandis que Caddy et NGINX assurent la gestion du reverse proxy et la sécurité du site.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+L’infrastructure est automatisée à l’aide de GitHub Actions pour les pipelines CI/CD, permettant une intégration continue et un déploiement efficace.
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby -- -ts
-    ```
-
-2.  **Start developing.**
-
-    Navigate into your new site’s directory and start it up.
-
-    ```shell
-    cd portfolio/
-    npm run develop
-    ```
-
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.tsx` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-
-## 🚀 Quick start (Netlify)
-
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
-
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+# CI/CD
+   - add / commit / push   
+   - create tag v* / push new tag (automatic deploynment)
