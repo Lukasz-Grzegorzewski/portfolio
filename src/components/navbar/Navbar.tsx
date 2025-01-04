@@ -50,7 +50,7 @@ const Navbar = ({
 
         <li>
           <a
-            href={`${process.env.DOMAIN}/cv/CV_Lukasz_Grzegorzewski.pdf`}
+            href={`${process.env.DOMAIN}/cv/CV_Lukasz_Grzegorzewski_${localeLanguage}.pdf`}
             target="_blank"
             rel="noreferrer"
             className="text-secondary"
