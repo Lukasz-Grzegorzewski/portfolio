@@ -3,6 +3,7 @@ import { useForm, ValidationError } from "@formspree/react";
 import BtnSubmit from "./BtnSubmit";
 import { SetActiveSectionType } from "@pages/index";
 import useScrollDistance from "@hooks/useScrollDistance";
+import { useTranslation } from "react-i18next";
 
 type FormDataType = {
   email: string;
@@ -11,11 +12,14 @@ type FormDataType = {
 
 const Contact = ({ setActiveSection }: SetActiveSectionType) => {
   const { isInView, elementRef } = useScrollDistance("Contact");
+  const { t } = useTranslation("common");
 
   const [formData, setFormData] = React.useState<FormDataType>({
     email: "",
     message: "",
   });
+  console.log(formData.message);
+
   const [submitState, handleSubmit, resetForm] = useForm(
     process.env.FORMSPREE_ID as string,
   );
@@ -47,7 +51,7 @@ const Contact = ({ setActiveSection }: SetActiveSectionType) => {
       className="min-h-dvh flex flex-col gap-10 items-center justify-center"
     >
       <h2 className="text-secondary-dark text-4xl text-center">
-        Faisons connaissance
+        {t("contact.title")} !
       </h2>
       <form
         className="space-y-6 w-3/4 round-3xl md:w-1/2"
@@ -62,7 +66,7 @@ const Contact = ({ setActiveSection }: SetActiveSectionType) => {
             id="email"
             name="email"
             className={`${style} ${styleInput} h-12 `}
-            placeholder="Email"
+            placeholder="Emdcfil"
             value={formData.email}
             onChange={(event) =>
               setFormData((prev) => ({
@@ -88,7 +92,7 @@ const Contact = ({ setActiveSection }: SetActiveSectionType) => {
             name="message"
             rows={4}
             className={`${style} ${styleInput} py-2`}
-            placeholder="Message"
+            placeholder={t("contact.message")}
             value={formData.message}
             onChange={(event) =>
               setFormData((prev) => ({
@@ -99,7 +103,7 @@ const Contact = ({ setActiveSection }: SetActiveSectionType) => {
             required
           />
           <label htmlFor="message" className={getLabelStyle("message")}>
-            Message
+            {t("contact.message")}
           </label>
           <ValidationError
             prefix="Message"

@@ -1,0 +1,23 @@
+{
+  "title": "Developer",
+  "navbar": {
+    "home": "Home",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "projectDetails": {
+    "hrefs": {
+      "discover": "Discover",
+      "here": "here"
+    },
+    "label": {
+      "github_repository": "Github repository",
+      "monolitique": "Monolitique"
+    }
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "message": "Message",
+    "submit": "Send"
+  }
+}

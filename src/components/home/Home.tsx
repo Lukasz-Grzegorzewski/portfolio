@@ -5,10 +5,12 @@ import Stitch from "./Stitch";
 import { SetActiveSectionType } from "@pages/index";
 import useScrollDistance from "@hooks/useScrollDistance";
 import Loading from "../status/Loading";
+import { useTranslation } from "react-i18next";
 
 const Home = ({ setActiveSection }: SetActiveSectionType) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const { isInView, elementRef } = useScrollDistance("Home");
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     if (isInView) setActiveSection("Home");
@@ -54,7 +56,7 @@ const Home = ({ setActiveSection }: SetActiveSectionType) => {
           after:md:text-2xl after:md:-right-15 after:md:-bottom-10
         "
       >
-        Developpeur
+        {t("title")}
       </h1>
     </section>
   );

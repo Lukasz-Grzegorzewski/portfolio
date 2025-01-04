@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Loading from "@components/status/Loading";
 import Success from "@components/status/Success";
+import { useTranslation } from "react-i18next";
 
 type SubmitState = {
   submitting: boolean;
@@ -15,6 +16,7 @@ type BtnSubmitProps = {
 
 const BtnSubmit = ({ style, submitState, resetForm }: BtnSubmitProps) => {
   const [success, setSuccess] = React.useState(false);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     if (submitState.succeeded) {
@@ -32,7 +34,7 @@ const BtnSubmit = ({ style, submitState, resetForm }: BtnSubmitProps) => {
   ) : success ? (
     <Success />
   ) : (
-    "Envoyer"
+    t("contact.submit")
   );
 
   return (

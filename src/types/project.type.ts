@@ -5,7 +5,15 @@ import { ContentfulRichTextGatsbyReference } from "gatsby-source-contentful/rich
 export type ProjectType = {
   name: string;
   url: string;
-  description: {
+  descriptionFr: {
+    raw: string;
+    references?: ContentfulRichTextGatsbyReference[];
+  };
+  descriptionEn: {
+    raw: string;
+    references?: ContentfulRichTextGatsbyReference[];
+  };
+  descriptionPl: {
     raw: string;
     references?: ContentfulRichTextGatsbyReference[];
   };

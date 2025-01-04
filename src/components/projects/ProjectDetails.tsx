@@ -8,25 +8,48 @@ import {
   RenderRichTextData,
 } from "gatsby-source-contentful/rich-text";
 import { INLINES, BLOCKS, MARKS, Node } from "@contentful/rich-text-types";
+import { useLocaleLanguageContext } from "@src/contexts/LocaleLanguageContext";
 
 const ProjectDetails = ({ project }: { project: ProjectType }) => {
+  const { localeLanguage } = useLocaleLanguageContext();
   const image = getImage(project.image);
+  const labels = {
+    fr: `Github repository : Frontend`,
+    PL: `Repozytorium Github : Frontend`,
+    EN: `Github repository : Frontend`,
+  };
   const hrefs = [
     {
       url: project.name === "Portfolio" ? undefined : project.url,
-      label: `Découvrez ${project.name} ici !`,
+      label: {
+        fr: `Découvrez ${project.name} ici !`,
+        pl: `Odkryj ${project.name} tutaj !`,
+        en: `Discover ${project.name} here !`,
+      },
     },
     {
       url: project.urlGithub,
-      label: `Github repository : Monolitique`,
+      label: {
+        fr: `Github repository : Monolitique`,
+        pl: `Repozytorium Github : Monolityczne`,
+        en: `Github repository : Monolitique`,
+      },
     },
     {
       url: project.urlGithubFrontend,
-      label: `Github repository : Frontend`,
+      label: {
+        fr: `Github repository : Frontend`,
+        pl: `Repozytorium Github : Frontend`,
+        en: `Github repository : Frontend`,
+      },
     },
     {
       url: project.urlGithubBackend,
-      label: `Github repository : Backtend`,
+      label: {
+        fr: `Github repository : Backend`,
+        pl: `Repozytorium Github : Backend`,
+        en: `Github repository : Backend`,
+      },
     },
   ].filter((e) => e.url);
 
@@ -56,6 +79,13 @@ const ProjectDetails = ({ project }: { project: ProjectType }) => {
     },
   };
 
+  const description =
+    localeLanguage === "fr"
+      ? project.descriptionFr
+      : localeLanguage === "pl"
+        ? project.descriptionPl
+        : project.descriptionEn;
+
   return (
     <div
       className="
@@ -74,9 +104,9 @@ const ProjectDetails = ({ project }: { project: ProjectType }) => {
       </div>
       <div className="flex flex-col flex-grow gap-10 p-[1rem_1.5rem_2rem] md:p-[1rem_4rem_2rem]">
         <div className="text-secondary-light text-xs md:text-sm text-justify">
-          {project.description &&
+          {description &&
             renderRichText(
-              project.description as RenderRichTextData<ContentfulRichTextGatsbyReference>,
+              description as RenderRichTextData<ContentfulRichTextGatsbyReference>,
               options,
             )}
         </div>
@@ -89,7 +119,7 @@ const ProjectDetails = ({ project }: { project: ProjectType }) => {
                 rel="noopener noreferrer"
                 className="text-primary underline"
               >
-                {href.label}
+                {href.label[localeLanguage]}
               </a>
             </li>
           ))}

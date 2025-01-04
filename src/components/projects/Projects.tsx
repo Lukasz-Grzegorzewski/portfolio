@@ -38,7 +38,13 @@ export const Projects = ({
       projects: allContentfulProject(sort: {index: ASC}) {
         nodes {
           name
-          description {
+          descriptionFr {
+            raw
+          }
+          descriptionPl {
+            raw
+          }
+          descriptionEn {
             raw
           }
           index

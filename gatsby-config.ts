@@ -45,6 +45,14 @@ const config: GatsbyConfig = {
       __key: "images",
     },
     {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "locales",
+        path: "./src/locales/",
+      },
+      __key: "locales",
+    },
+    {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
         alias: {
@@ -77,6 +85,20 @@ const config: GatsbyConfig = {
       options: {
         fonts: [`Luckiest Guy`, `cursive pro:400`],
         display: "swap",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        localeJsonSourceName: `locales`,
+        languages: [`en`, `fr`, `pl`],
+        defaultLanguage: `en`,
+        i18nextOptions: {
+          defaultNS: "common",
+          ns: ["common"],
+          interpolation: { escapeValue: false },
+        },
+        redirect: false,
       },
     },
   ],
