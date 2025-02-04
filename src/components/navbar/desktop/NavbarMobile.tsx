@@ -47,13 +47,14 @@ const NavbarMobile = ({
 
   return (
     <nav className="fixed bottom-3 right-3 left-3 z-10 bg-transparent rounded-full outline-1 outline outline-secondary-dark backdrop-blur-md">
-      <ul className="flex justify-around items-center p-3 gap-5 ">
+      <ul className="flex justify-around items-center p-3">
         {buttons.map((section) => (
           <Link key={section.href} to={`#${section.href}`}>
             <li>
               <button
                 type="button"
                 onClick={() => handleNavClick(section.href)}
+                className="w-8"
               >
                 <img
                   src={
