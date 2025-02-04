@@ -9,181 +9,111 @@ type CarouselMobileProps = {
 
 export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
   const { openModal } = useProjectDetailsContext();
-  const carouselMobileRef = useRef<HTMLDivElement | null>(null);
-  const cardWrapperRefs = useRef<HTMLDivElement[]>([]);
-  const [currentTranslate, setCurrentTranslate] = useState(0);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [startY, setStartY] = useState(0);
-  const [cardWidth, setCardWidth] = useState(0);
-  const [gap, setGap] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
 
-  // Measure card width, gap, and carousel width
+  // Set initial translate to center first card
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (carouselMobileRef.current && cardWrapperRefs.current.length > 0) {
-        const carouselStyles = getComputedStyle(carouselMobileRef.current);
-        const gapValue = Number.parseFloat(carouselStyles.gap || "0");
-
-        const card = cardWrapperRefs.current[0];
-        const cardRect = card.getBoundingClientRect();
-
-        setCardWidth(cardRect.width);
-        setGap(gapValue);
-
-        // Initially center the first card
-        const initialTranslate = window.innerWidth / 2 - cardRect.width / 2;
-        setCurrentTranslate(initialTranslate);
-      }
+    if (carouselRef.current && cardRefs.current[0]) {
+      const cardWidth = cardRefs.current[0].offsetWidth;
+      const computedGap =
+        Number.parseFloat(getComputedStyle(carouselRef.current).gap) || 0;
+      setTranslateX(window.innerWidth / 2 - (cardWidth + computedGap) / 2);
     }
   }, []);
 
-  // Lock vertical scroll when dragging horizontally
-  useEffect(() => {
-    if (isDragging) {
-      document.documentElement.classList.add("no-scroll");
-    } else {
-      document.documentElement.classList.remove("no-scroll");
-    }
-
-    return () => {
-      document.documentElement.classList.remove("no-scroll");
-    };
-  }, [isDragging]);
-
-  // Handle drag start
   const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-
     setStartX(clientX);
-    setStartY(clientY);
+    setIsDragging(true);
   };
 
-  // Handle drag move
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return;
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-
-    const dx = clientX - startX;
-    const dy = clientY - startY;
-
-    if (!isDragging) {
-      setIsDragging(Math.abs(dx) > Math.abs(dy));
-    }
-
-    const diff = clientX - startX;
-
-    setCurrentTranslate((prev) => prev + diff);
+    const diffX = clientX - startX;
+    setTranslateX((prev) => prev + diffX);
     setStartX(clientX);
   };
 
-  // Handle drag end and snap to the nearest card
   const handleEnd = () => {
     setIsDragging(false);
+    if (!carouselRef.current || cardRefs.current.length === 0) return;
 
-    if (!carouselMobileRef.current || cardWrapperRefs.current.length === 0) {
-      return;
-    }
+    const cardWidth = cardRefs.current[0]?.offsetWidth || 0;
+    const computedGap =
+      Number.parseFloat(getComputedStyle(carouselRef.current).gap) || 0;
+    const totalCardWidth = cardWidth + computedGap;
 
-    const totalCards = cardWrapperRefs.current.length;
-
-    // Calculate the target index
-    const offset = window.innerWidth / 2 - cardWidth / 2; // Center offset
-    const closestIndex = Math.round(
-      (offset - currentTranslate) / (cardWidth + gap),
+    const newIdx = Math.round(
+      (window.innerWidth / 2 - translateX) / totalCardWidth,
     );
+    const clampedIdx = Math.max(0, Math.min(projects.length - 1, newIdx));
 
-    // Clamp the index
-    const clampedIndex = Math.max(0, Math.min(totalCards - 1, closestIndex));
-
-    setCurrentIndex(clampedIndex);
-
-    // Recalculate translate for the centered card
-    const newTranslate = offset - clampedIndex * (cardWidth + gap);
-    setCurrentTranslate(newTranslate);
+    setCurrentIndex(clampedIdx);
+    setTranslateX(
+      window.innerWidth / 2 - clampedIdx * totalCardWidth - cardWidth / 2,
+    );
   };
 
-  // Handle card click to center the clicked card
   const handleClick = (index: number) => {
     if (index === currentIndex) {
-      const project = projects[index];
-      openModal(project.name);
+      openModal(projects[index].name);
     }
+    const cardWidth = cardRefs.current[0]?.offsetWidth || 0;
+    const computedGap = carouselRef.current
+      ? Number.parseFloat(getComputedStyle(carouselRef.current).gap) || 0
+      : 0;
+    const totalCardWidth = cardWidth + computedGap;
 
-    const offset = window.innerWidth / 2 - cardWidth / 2;
-    const newTranslate = offset - index * (cardWidth + gap);
     setCurrentIndex(index);
-    setCurrentTranslate(newTranslate);
+    setTranslateX(
+      window.innerWidth / 2 - index * totalCardWidth - cardWidth / 2,
+    );
   };
 
-  const handleCardRef = (el: HTMLDivElement | null, index: number) => {
-    if (el) {
-      cardWrapperRefs.current[index] = el;
-    }
-  };
+  function handleTest(index: number) {
+    console.log("index", index);
+    console.log("currentIndex", currentIndex);
+
+    return index === currentIndex
+      ? { transform: "scale(1.05) translateY(-0.5rem)" }
+      : {};
+  }
 
   return (
     <div
       className="relative overflow-hidden py-10"
-      onTouchStart={handleStart}
-      onTouchMove={handleMove}
-      onTouchEnd={handleEnd}
       onMouseDown={handleStart}
       onMouseMove={handleMove}
       onMouseUp={handleEnd}
       onMouseLeave={handleEnd}
+      onTouchStart={handleStart}
+      onTouchMove={handleMove}
+      onTouchEnd={handleEnd}
     >
       <div
-        ref={carouselMobileRef}
-        className="flex w-fit mb-44 gap-0 transition-transform duration-500 ease-out"
-        style={{ transform: `translateX(${currentTranslate}px)` }}
+        ref={carouselRef}
+        className="flex w-fit transition-transform duration-300 ease-out gap-5"
+        style={{ transform: `translateX(${translateX}px)` }}
       >
-        {projects.map((project, index) => {
-          const isCurrentCard = index === currentIndex;
-          const isLeftCard = index === currentIndex - 1;
-          const isRightCard = index === currentIndex + 1;
-          const isFarLeft = !isLeftCard && index < currentIndex;
-          const isFarRight = !isLeftCard && index > currentIndex;
-
-          const scale = isCurrentCard
-            ? 1
-            : isLeftCard || isRightCard
-              ? 0.75
-              : 0.65;
-
-          const translate = isCurrentCard
-            ? { x: 0, y: 140 }
-            : isLeftCard
-              ? { x: 70, y: 60 }
-              : isRightCard
-                ? { x: -70, y: 60 }
-                : isFarLeft
-                  ? { x: 200, y: 0 }
-                  : isFarRight
-                    ? { x: -200, y: 0 }
-                    : {};
-
-          return (
-            <div
-              key={`${project.name}${index}`}
-              ref={(el) => handleCardRef(el, index)}
-              className={`flex transition-transform duration-500 `}
-              style={{
-                transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
-                zIndex: isCurrentCard ? 10 : isLeftCard || isRightCard ? 9 : 8,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => handleClick(index)} // On card click, center it
-              >
-                <ProjectCardMobile {...project} />
-              </button>
-            </div>
-          );
-        })}
+        {projects.map((project, index) => (
+          <div
+            key={project.name}
+            // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+            ref={(el) => (cardRefs.current[index] = el)}
+            className="transition-transform duration-300 ease-out"
+            style={handleTest(index)}
+          >
+            <button type="button" onClick={() => handleClick(index)}>
+              <ProjectCardMobile {...project} />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

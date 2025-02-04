@@ -1,18 +1,8 @@
-import { useProjectDetailsContext } from "@src/contexts/ProjectDetailsContext";
 import { ProjectType } from "@src/types/project.type";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 
-export const ProjectCardMobile = ({
-  name,
-  index,
-  url,
-  urlGithub,
-  urlGithubFrontend,
-  urlGithubBackend,
-  stack,
-  thumbnailMobile,
-}: ProjectType) => {
+export const ProjectCardMobile = ({ name, thumbnailMobile }: ProjectType) => {
   const projectThumbnailMobileImage = getImage(thumbnailMobile);
 
   const handleDragStart = (e: React.DragEvent) => {
