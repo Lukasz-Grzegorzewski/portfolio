@@ -85,14 +85,14 @@ const NavbarMobile = ({
             onChange={(e) => changLanguage(e.target.value as LocalLanguage)}
             className="bg-transparent border-none text-secondary-dark focus:outline-none "
           >
-            <option value="fr">
-              <span className="text-3xl">🇫🇷</span>
+            <option value="fr" className="text-3xl">
+              🇫🇷
             </option>
-            <option value="en">
-              <span className="text-3xl">🇬🇧</span>
+            <option value="en" className="text-3xl">
+              🇬🇧
             </option>
-            <option value="pl">
-              <span className="text-3xl">🇵🇱</span>
+            <option value="pl" className="text-3xl">
+              🇵🇱
             </option>
           </select>
         </li>

@@ -26,6 +26,18 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (isDragging) {
+      document.documentElement.classList.add("no-scroll");
+    } else {
+      document.documentElement.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.documentElement.classList.remove("no-scroll");
+    };
+  }, [isDragging]);
+
   const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
     setStartX(clientX);
@@ -77,9 +89,6 @@ export const CarouselMobile = ({ projects }: CarouselMobileProps) => {
   };
 
   function handleTest(index: number) {
-    console.log("index", index);
-    console.log("currentIndex", currentIndex);
-
     return index === currentIndex
       ? { transform: "scale(1.05) translateY(-0.5rem)" }
       : {};

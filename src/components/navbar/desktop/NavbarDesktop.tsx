@@ -64,14 +64,14 @@ const NavbarDesktop = ({
             onChange={(e) => changLanguage(e.target.value as LocalLanguage)}
             className="bg-transparent border-none ml-2 text-secondary focus:outline-none flex gap-0"
           >
-            <option value="fr">
-              <span className="text-3xl">🇫🇷</span> Français
+            <option value="fr" className="text-3xl">
+              🇫🇷 Français
             </option>
-            <option value="en">
-              <span className="text-3xl">🇬🇧</span> English
+            <option value="en" className="text-3xl">
+              🇬🇧 English
             </option>
-            <option value="pl">
-              <span className="text-3xl">🇵🇱</span> Polski
+            <option value="pl" className="text-3xl">
+              🇵🇱 Polski
             </option>
           </select>
         </li>

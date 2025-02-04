@@ -18,7 +18,6 @@ const Contact = ({ setActiveSection }: SetActiveSectionType) => {
     email: "",
     message: "",
   });
-  console.log(formData.message);
 
   const [submitState, handleSubmit, resetForm] = useForm(
     process.env.FORMSPREE_ID as string,
