@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { ProjectType } from "@src/types/project.type";
 import { ProjectCardDesktop } from "./ProjectCardDesktop";
+import { useProjectDetailsContext } from "@src/contexts/ProjectDetailsContext";
 
 type CarouselDesktopProps = {
   projects: ProjectType[];
@@ -16,6 +17,7 @@ export const CarouselDesktop = ({
   projects,
   isProjectModal,
 }: CarouselDesktopProps) => {
+  const { openModal, projectNameModal } = useProjectDetailsContext();
   const carouselRef = useRef<HTMLDivElement>(null);
   const cardContainerRef = useRef<HTMLDivElement>(null);
   const [clickedCardIndex, setClickedCardIndex] = useState<number | null>(null);
@@ -31,12 +33,9 @@ export const CarouselDesktop = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isProjectModal]);
 
-  const handleClickCard = (
-    e: MouseEventReact<HTMLDivElement, MouseEvent>,
-    index: number,
-  ) => {
+  const handleClickCard = (index: number, projectName: string) => {
     if (!cardContainerRef.current) return;
-    if (clickedCardIndex === index) setClickedCardIndex(null);
+    if (clickedCardIndex === index) openModal(projectName);
     else setClickedCardIndex(index);
   };
 
@@ -97,10 +96,9 @@ export const CarouselDesktop = ({
               key={project.index}
               {...project}
               clickedCardIndex={clickedCardIndex}
-              handleClickCard={(
-                e: MouseEventReact<HTMLDivElement, MouseEvent>,
-                index: number,
-              ) => handleClickCard(e, index)}
+              handleClickCard={() =>
+                handleClickCard(project.index, project.name)
+              }
             />
           ))}
         </div>
